@@ -17,4 +17,11 @@ Route::post('login' , [\App\Http\Controllers\Api\Auth\AuthController::class , 'l
 
 Route::middleware('auth:api')->group(function () {
     Route::get('user/show-info' , [\App\Http\Controllers\Api\Auth\AuthController::class , 'showInfo']);
+    Route::get('todos' , function (){
+        return  response()->json([
+            'message' => 'success' ,
+            'user' => auth()->user() ,
+            'data' => auth()->user()->todos ,
+        ]);
+    });
 });
