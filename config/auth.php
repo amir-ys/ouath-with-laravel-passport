@@ -40,8 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
         'api' => [
-            'driver' => 'passport',
+            'driver' => 'sanctum',
+            'provider' => 'customers',
+        ],
+
+        'dir' => [
+            'driver' => 'sanctum',
             'provider' => 'users',
         ],
     ],
@@ -67,6 +73,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+        'customers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Customer::class,
         ],
 
         // 'users' => [

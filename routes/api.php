@@ -13,15 +13,14 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('login' , [\App\Http\Controllers\Api\Auth\AuthController::class , 'login']);
+Route::post('user/login' , [\App\Http\Controllers\Api\Auth\UserAuthController::class , 'login']);
+Route::post('customer/login' , [\App\Http\Controllers\Api\Auth\CustomerAuthController::class , 'login']);
 
-Route::middleware('auth:api')->group(function () {
-    Route::get('user/show-info' , [\App\Http\Controllers\Api\Auth\AuthController::class , 'showInfo']);
-    Route::get('todos' , function (){
-        return  response()->json([
-            'message' => 'success' ,
-            'user' => auth()->user() ,
-            'data' => auth()->user()->todos ,
-        ]);
-    });
+Route::prefix('user')->middleware('auth:dir')->group(function () {
+    Route::get('show-info' , [\App\Http\Controllers\Api\Auth\UserAuthController::class , 'showInfo']);
 });
+
+Route::prefix('customer')->middleware('auth:api')->group(function () {
+    Route::get('show-info' , [\App\Http\Controllers\Api\Auth\CustomerAuthController::class , 'showInfo']);
+});
+
